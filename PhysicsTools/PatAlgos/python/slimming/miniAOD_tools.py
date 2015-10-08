@@ -112,7 +112,7 @@ def miniAOD_customizeCommon(process):
     process.printEventContent =cms.EDAnalyzer("EventContentAnalizer")
     process.recoTauAK4PFJets08RegionBoosted.src = cms.InputTag('boostedTauSeeds')
     process.recoTauAK4PFJets08RegionBoosted.pfCandSrc = cms.InputTag('particleFlow')
-    process.recoTauAK4PFJets08RegionBoosted.pfCandSrc = cms.InputTag('pfNoPileUpForBoostedTaus')
+    #process.recoTauAK4PFJets08RegionBoosted.pfCandSrc = cms.InputTag('pfNoPileUpForBoostedTaus')
     process.recoTauAK4PFJets08RegionBoosted.pfCandAssocMapSrc = cms.InputTag('boostedTauSeeds', 'pfCandAssocMapForIsolation')
     process.ak4PFJetsLegacyHPSPiZerosBoosted.jetSrc = cms.InputTag('boostedTauSeeds')
     process.ak4PFJetsRecoTauChargedHadronsBoosted.jetSrc = cms.InputTag('boostedTauSeeds')
