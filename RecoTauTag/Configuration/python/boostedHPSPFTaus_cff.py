@@ -13,7 +13,7 @@ pfPileUpForBoostedTaus = boostedTaus.pfPileUp.clone(
     checkClosestZVertex = cms.bool(False)
 )
 pfNoPileUpForBoostedTaus = boostedTaus.pfNoPileUp.clone(
-   # topCollection = cms.InputTag('pfPileUpForBoostedTaus'),
+    topCollection = cms.InputTag('pfPileUpForBoostedTaus'),
     bottomCollection = cms.InputTag('particleFlowPtrs')
 )
 
@@ -23,7 +23,7 @@ import RecoJets.JetProducers.CMSBoostedTauSeedingParameters_cfi as boostedTaus3
 ##ca8PFJetsCHSprunedForBoostedTaus = boostedTaus2.ak4PFJetsPruned.clone(
 ca8PFJetsCHSprunedForBoostedTaus = boostedTaus2.ak4PFJets.clone(
     boostedTaus3.CMSBoostedTauSeedingParameters,
-   # src = cms.InputTag('pfNoPileUpForBoostedTaus'),
+    src = cms.InputTag('pfNoPileUpForBoostedTaus'),
     jetPtMin = cms.double(10.0),
     doAreaFastjet = cms.bool(True),
     nFilt = cms.int32(4),

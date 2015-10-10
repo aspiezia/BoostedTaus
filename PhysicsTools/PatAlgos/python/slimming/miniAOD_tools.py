@@ -72,8 +72,7 @@ def miniAOD_customizeCommon(process):
     process.selectedPatJets.cut = cms.string("pt > 10")
     process.selectedPatMuons.cut = cms.string("pt > 5 || isPFMuon || (pt > 3 && (isGlobalMuon || isStandAloneMuon || numberOfMatches > 0 || muonID('RPCMuLoose')))")
     process.selectedPatElectrons.cut = cms.string("")
-   # process.selectedPatTaus.cut = cms.string("pt > 18. && tauID('decayModeFindingNewDMs')> 0.5")
-    process.selectedPatTaus.cut = cms.string("pt > 10")
+    process.selectedPatTaus.cut = cms.string("pt > 18. && tauID('decayModeFindingNewDMs')> 0.5")
     process.selectedPatPhotons.cut = cms.string("")
 
     from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
@@ -109,11 +108,11 @@ def miniAOD_customizeCommon(process):
                      labelName = "patCaloMet",
                      metSource = "caloMetM"
                      )
-  ######Start: Boosted Subjets taus######
+
+    ######Start: Boosted Subjets taus######
     from PhysicsTools.PatAlgos.tools.helpers import cloneProcessingSnippet
     from PhysicsTools.PatAlgos.tools.helpers import massSearchReplaceAnyInputTag
     process.load("RecoTauTag.Configuration.RecoPFTauTag_cff")
-  
     process.ptau = cms.Path( process.PFTau )
     process.PATTauSequence = cms.Sequence(process.PFTau+process.makePatTaus+process.selectedPatTaus)
     process.load("RecoTauTag.Configuration.boostedHPSPFTaus_cff")
@@ -121,7 +120,8 @@ def miniAOD_customizeCommon(process):
     process.load("FWCore.MessageLogger.MessageLogger_cfi")
     process.printEventContent =cms.EDAnalyzer("EventContentAnalizer")
     process.recoTauAK4PFJets08RegionBoosted.src = cms.InputTag('boostedTauSeeds')
-    process.recoTauAK4PFJets08RegionBoosted.pfCandSrc = cms.InputTag('particleFlow')
+    #process.recoTauAK4PFJets08RegionBoosted.pfCandSrc = cms.InputTag('particleFlow')
+    process.recoTauAK4PFJets08RegionBoosted.pfCandSrc = cms.InputTag('pfNoPileUpForBoostedTaus')
     process.recoTauAK4PFJets08RegionBoosted.pfCandAssocMapSrc = cms.InputTag('boostedTauSeeds', 'pfCandAssocMapForIsolation')
     process.ak4PFJetsLegacyHPSPiZerosBoosted.jetSrc = cms.InputTag('boostedTauSeeds')
     process.ak4PFJetsRecoTauChargedHadronsBoosted.jetSrc = cms.InputTag('boostedTauSeeds')
@@ -129,10 +129,9 @@ def miniAOD_customizeCommon(process):
     process.ak4PFJetsRecoTauChargedHadronsBoosted.builders[1].dRconeLimitedToJetArea = cms.bool(True)
     process.combinatoricRecoTausBoosted.jetSrc = cms.InputTag('boostedTauSeeds')
     process.combinatoricRecoTausBoosted.modifiers.remove(process.combinatoricRecoTausBoosted.modifiers[3])
-    process.combinatoricRecoTausBoosted.builders[0].pfCandSrc = cms.InputTag('particleFlow')
+    #process.combinatoricRecoTausBoosted.builders[0].pfCandSrc = cms.InputTag('particleFlow')
+    process.combinatoricRecoTausBoosted.builders[0].pfCandSrc = cms.InputTag('pfNoPileUpForBoostedTaus')
     massSearchReplaceAnyInputTag(process.PATTauSequenceBoosted,cms.InputTag("ak4PFJets"),cms.InputTag("boostedTauSeeds"))
-     
-
     process.slimmedTausBoosted = process.slimmedTaus.clone(src = cms.InputTag("selectedPatTausBoosted"))
  
 
